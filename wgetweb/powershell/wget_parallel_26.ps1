@@ -8,20 +8,26 @@
         [Parameter()]
 		[string]$replaceText,
         [Parameter()]
-		[string]$logPath,
-        [Parameter()]
 		[string]$outputPath,
         [Parameter()]
 		[string]$cookiePath,
         [Parameter()]
-		[string]$logFile
+		[string]$postData,
+        [Parameter()]
+		[string]$loginUrl,
+        [Parameter()]
+        [string] $linkDownLoad
 	 )
-     try {               
-            $FilesInFolder = Get-ChildItem  $dirReadFile -filter "*.txt"  
+     
+     try {              
+            $FilesInFolder = Get-ChildItem  $dirReadFile
             ForEach($File in $FilesInFolder) {
-                $a = Get-Content $File.FullName
-                ForEach -Parallel($b in $a) {
-                    Download-HTML $exeProgram $b.ToString() $replaceText $logPath  $outputPath $cookiePath $logFile
+                Wget-Cookie $exeProgram $outputPath $cookiePath $postData $loginUrl
+                echo $File.FullName
+                $rows = Get-Content $File.FullName
+                #-throttlelimit 100
+                ForEach -Parallel  ($row in $rows) {
+                    Download-HTML $exeProgram $row.ToString() $replaceText $outputPath $cookiePath $linkDownLoad
                 }
                     
             }			
@@ -39,22 +45,19 @@ Function Download-HTML {
         [Parameter()]
 		[string]$replaceText,
         [Parameter()]
-		[string]$logPath,
-        [Parameter()]
 		[string]$outputPath,
         [Parameter()]
 		[string]$cookiePath,
         [Parameter()]
-		[string]$logFile
+        [string] $linkDownLoad
 	)
 	begin {
-        $linkDownLoad = "http://leonotes09.leopalace21.com/SoumuJin/ringi_soumu.nsf/569DE1E70D3FD5EB49256BBB003B7467/XXXXX?OpenDocument"
         $linkDownLoad= $linkDownLoad -replace $replaceText,$linkFile
-        echo  $linkDownLoad      
+        #echo  $linkDownLoad      
 	}
     process {        
         try {          
-        & $exeProgram -q -P $outputPath --save-cookies=$cookiePath --keep-session-cookies --load-cookies=$cookiePath -p -k -E -r -l1 $linkDownLoad
+        & $exeProgram -q -P $outputPath --keep-session-cookies --load-cookies=$cookiePath -p -k -E -r -l1 $linkDownLoad
         } catch {
             #Write-Output $linkDownLoad | Out-File $logFile
         }   
@@ -62,25 +65,36 @@ Function Download-HTML {
 	end { 
     }
 }
+Function Wget-Cookie {
+	[CmdletBinding()]
+	param(
+        [Parameter()]
+		[string]$exeProgram,
+        [Parameter()]
+		[string]$outputPath,
+        [Parameter()]
+		[string]$cookiePath,
+        [Parameter()]
+		[string]$postData,
+        [Parameter()]
+		[string]$loginUrl
+	)
+    try {         
+    & $exeProgram -q -P $outputPath --save-cookies=$cookiePath --keep-session-cookies --post-data=$postData $loginUrl
+    } catch {
+        #Write-Output $linkDownLoad | Out-File $logFile
+    }   
+   
+}
+$fileName= $MyInvocation.MyCommand.Name  -replace '.ps1$',''
 $exeProgram = "C:\Program Files\GnuWin32\bin\wget"
-$logFile = "C:\vulth\domino\download_domino.log"
+$dirReadFile = $outputPath+".\"+$fileName
+$outputPath =  Split-Path $script:MyInvocation.MyCommand.Path
+$cookiePath =   $outputPath+"\"+$fileName+"_cookie.txt"
 $loginUrl = "http://leonotes09.leopalace21.com/names.nsf?Login"
 $postData = '"username=admin&password=password&redirectto=%2Ftop.nsf%3FOpen"'
-$outputPath = "C:\vulth\domino"
-$dirReadFile = "C:\vulth\domino\linked_files"
-$logPath = "C:\vulth\domino\log.txt"
-$cookiePath = "C:\vulth\domino\cookie.txt"
 $replaceText = 'XXXXX'
-$start_time = Get-Date
-# Run Parallel wget
-#echo  "$exeProgram -P $outputPath --save-cookies=$cookiePath --keep-session-cookies --post-data=$postData $loginUrl"
-try {  
-    & $exeProgram -q -P $outputPath --save-cookies=$cookiePath --keep-session-cookies --post-data=$postData $loginUrl
-} catch {
-    #Write-Error $_.Exception.Message
-    #Write-Output $file | Out-File $logFile
-}
-#$PSVersionTable.PSVersion  
-RunDownloadHtml $exeProgram  $dirReadFile  $replaceText $logPath  $outputPath $cookiePath $logFile
+$linkDownLoad = "http://leonotes09.leopalace21.com/SoumuJin/Archivedata/ringi_soumu_32.nsf/569DE1E70D3FD5EB49256BBB003B7467/XXXXX?OpenDocument"
+$start_time =  Get-Date
+RunDownloadHtml $exeProgram  $dirReadFile  $replaceText  $outputPath $cookiePath  $postData $loginUrl $linkDownLoad
 Write-Output "Time taken: $((Get-Date).Subtract($start_time).Seconds) second(s)"
-
