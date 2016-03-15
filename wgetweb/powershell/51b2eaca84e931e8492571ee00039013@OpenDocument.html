@@ -1,0 +1,164 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<SCRIPT LANGUAGE='JavaScript'>
+<!-- 
+var mailWin;
+var docInfoWin;
+var operateWin;
+var refcomWin;
+function adjustActions(){
+	var cnames,i,cObj;
+	if( window.opener || window.name != 'SoumuJin/Archivedata/ringi_soumu_34.nsf/Contents'){
+		cnames = new Array("cellPrev","cellNext","cellBack","cellEdit","cellReapply","cellCancel","cellCopy");
+	}else{
+		cnames = new Array("cellClose");
+	}
+	for(i=0; i<cnames.length; i++){
+		cObj = document.all[cnames[i]];
+		if( cObj ) cObj.style.display='none';
+	}
+}
+function unload() {
+  if ( mailWin && !mailWin.closed ) mailWin.close();
+  if ( docInfoWin && !docInfoWin.closed ) docInfoWin.close();
+  if ( refcomWin && !refcomWin.closed ) refcomWin.close();
+}function onloadEv(){
+	if( window.adjustAttachImg ) adjustAttachImg();
+}
+// -->
+</SCRIPT><TITLE>承認済文書 出張申請書兼承認書</TITLE><SCRIPT LANGUAGE="JavaScript" SRC="/common/webparts.nsf/attach.js"></SCRIPT><Style>table.tn {border:solid 1px #000000;border-collapse:collapse;}td.cn {border:solid 1px #000000;}</style>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- 
+document._domino_target = "_self";
+function _doClick(v, o, t) {
+  var url="/SoumuJin/Archivedata/ringi_soumu_34.nsf/569de1e70d3fd5eb49256bbb003b7467/51b2eaca84e931e8492571ee00039013?OpenDocument&Click=" + v;
+  if (o.href != null)
+    o.href = url;
+  else {
+    if (t == null)
+      t = document._domino_target;
+    window.open(url, t);
+  }
+
+}
+// -->
+</SCRIPT>
+</HEAD>
+<BODY TEXT="000000" BGCOLOR="FFFFFF" topmargin=5 rightmargin=5 leftmargin=5 bottommargin=5 onLoad="onloadEv();" onUnload="unload();">
+
+<FORM><SCRIPT LANGUAGE="JavaScript">
+<!-- 
+function printWin(){
+	var ploc = '/SoumuJin/Archivedata/ringi_soumu_34.nsf/WebStatisticsAllV/51B2EACA84E931E8492571EE00039013?OpenDocument&Printmode=1';
+	var popt = 'menubar=yes,scrollbars=yes,resizable=yes';
+	var pwin = window.open(ploc , '51B2EACA84E931E8492571EE00039013', popt);
+	if( pwin ) pwin.focus();
+}
+function dispComment(){
+	var dcloc = '/SoumuJin/Archivedata/ringi_soumu_34.nsf/webRefComment?OpenForm&UNID=51B2EACA84E931E8492571EE00039013';
+	var dcopt = 'menubar=no,scrollbars=no,resizable=no,width=470,height=170';
+	refcomWin  = window.open(dcloc , 'refcomment51B2EACA84E931E8492571EE00039013', dcopt);
+	if( refcomWin ) refcomWin.focus();
+}
+function cancelApprove(){
+	if( confirm('承認を取り消しますか？') == false ) return;
+	var caloc = '/SoumuJin/Archivedata/ringi_soumu_34.nsf/(wCancelApproval)?OpenAgent&UNID=51B2EACA84E931E8492571EE00039013&From=WebStatisticsAllV&UserID=admin/LEO';
+	location.href = caloc;
+}
+function eprocess(v){
+	if( operateWin && !operateWin.closed ){
+		operateWin.focus();
+		return;
+	}
+	if(v==1){
+		var dloc = "/SoumuJin/Archivedata/ringi_soumu_34.nsf/(wTakeBackDocument)?OpenAgent&UNID=51B2EACA84E931E8492571EE00039013&Type=2&From=WebStatisticsAllV"; 
+		var dyesno = confirm('この文書を撤回（データベースから削除）します。よろしいですか？');
+		if( dyesno == true ) window.location = dloc;
+	}else if(v==2){
+		var rloc = "/SoumuJin/Archivedata/ringi_soumu_34.nsf/(wReApplyDocument)?OpenAgent&UNID=51B2EACA84E931E8492571EE00039013&From=WebStatisticsAllV"; 
+		var ryesno = confirm('この文書をコピーして再申請する文書を作成します。よろしいですか？');
+		if( ryesno == true ) window.location = rloc;
+	}else if(v==3){
+		var orloc = "/SoumuJin/Archivedata/ringi_soumu_34.nsf/WebOperateReader?OpenForm&UNID=51B2EACA84E931E8492571EE00039013";
+		operateWin = window.open(orloc , "WebOperateReader", "width=550,height=420,scrollbars=no,resizable=yes");
+	}else if(v==4){
+		var mlarg1 = "&UID=" + escape("Sayuri Miura/LEO");
+		var mlarg2 = "&UJP=" + escape("三浦 左有里");
+		var mlarg3 = "&OPT1=" + escape("出張申請書兼承認書 ＜＞への通知");
+		var mlloc = "/SoumuJin/Archivedata/ringi_soumu_34.nsf/WebInformDialog?OpenForm&UNID=51B2EACA84E931E8492571EE00039013" + mlarg1 + mlarg2 + mlarg3;
+		if( mailWin && !mailWin.closed ){
+			mailWin.focus();
+		}else{
+			mailWin = window.open(mlloc , "WebInformDialog", "width=550,height=420,scrollbars=no,resizable=yes");
+		}
+	}else if(v==5){
+		if( confirm('この文書の内容をコピーした申請文書を作成します。よろしいですか？') == false ) return;
+		var ccloc = '/SoumuJin/Archivedata/ringi_soumu_34.nsf/(wTakeOverDocument)?OpenAgent&UNID=51B2EACA84E931E8492571EE00039013&UserID=admin/LEO';
+		location.replace(ccloc);
+	}else if(v==6){
+		var ailoc = "/SoumuJin/Archivedata/ringi_soumu_34.nsf/webDispDocumentInfo?OpenForm&UNID=51B2EACA84E931E8492571EE00039013";
+		if( docInfoWin && !docInfoWin.closed ){
+			docInfoWin.focus();
+		}else{
+			docInfoWin = window.open(ailoc , "wDispDocumentInfo", "width=600,height=480,scrollbars=yes,resizable=yes");
+		}
+	}else if(v==7){
+		var eloc = '/SoumuJin/Archivedata/ringi_soumu_34.nsf/WebStatisticsAllV/51B2EACA84E931E8492571EE00039013?EditDocument';
+		window.location = eloc;
+	}else if(v==8){
+		if( window.formatCheck ) if( window.formatCheck() == false ) return;
+		document.forms[0].savebtn.click();
+	}else if(v==20){
+		printWin();
+	}else if(v==25){
+		cancelApprove();
+	}else if(v==30){
+		dispComment();
+	}else{
+		alert('指定された機能が不明です。');
+	}
+}
+// -->
+</SCRIPT>
+
+<TABLE BORDER=1 CELLSPACING=2 CELLPADDING=2>
+<TR VALIGN=middle BGCOLOR="#C0C0C0">
+<TD ID="cellPrev"><A HREF="/SoumuJin/Archivedata/ringi_soumu_34.nsf/WebStatisticsAllV/51B2EACA84E931E8492571EE00039013?Navigate&To=Prev"><IMG BORDER=0 WIDTH=21 HEIGHT=21 SRC="/icons/actn018.gif"></A></TD>
+<TD ID="cellNext"><A HREF="/SoumuJin/Archivedata/ringi_soumu_34.nsf/WebStatisticsAllV/51B2EACA84E931E8492571EE00039013?Navigate&To=Next"><IMG BORDER=0 WIDTH=21 HEIGHT=21 SRC="/icons/actn019.gif"></A></TD>
+<TD ID="cellBack"><A HREF="/SoumuJin/Archivedata/ringi_soumu_34.nsf/WebStatisticsAllV?OpenView"><IMG BORDER=0 WIDTH=21 HEIGHT=21 SRC="/icons/actn112.gif"><FONT SIZE=2>戻る</FONT></A></TD>
+<TD ID="cellClose"><A HREF="javascript:window.close();"><IMG BORDER=0 WIDTH=21 HEIGHT=21 SRC="/icons/actn112.gif"><FONT SIZE=2>閉じる</FONT></A></TD>
+<TD ID="cellComment"><A HREF="javascript:eprocess(30)"><IMG BORDER=0 WIDTH=21 HEIGHT=21 SRC="/icons/actn037.gif" ALT="コメントを表示"><FONT SIZE=2>ｺﾒﾝﾄ表示</FONT></A></TD>
+<TD ID="cellPrint"><A HREF="javascript:eprocess(20)"><IMG BORDER=0 WIDTH=21 HEIGHT=21 SRC="/icons/actn087.gif" ALT="印刷用画面表示"><FONT SIZE=2>印刷</FONT></A></TD>
+
+</TR></TABLE>
+<SCRIPT LANGUAGE="Javascript">adjustActions();</SCRIPT><NOSCRIPT><FONT SIZE=3 COLOR="red"><B>警告：JavaScriptが有効でないため、各種操作はできません</B></FONT></NOSCRIPT><HR>
+
+ 
+
+<FONT SIZE=2 FACE="ＭＳ 明朝"><B>承認者情報</B></FONT>
+
+<TABLE CLASS="tn" cellspacing=0 WIDTH="100%" BORDER=1>
+<TR VALIGN=top><TD CLASS="cn" width="5%" WIDTH="6%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ Ｐ明朝">順序</FONT></DIV></TD><TD CLASS="cn" width="25%" WIDTH="33%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ Ｐ明朝">部署</FONT></DIV></TD><TD CLASS="cn" width="15%" WIDTH="11%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ Ｐ明朝">承認者名</FONT></DIV></TD><TD CLASS="cn" width="15%" WIDTH="16%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ Ｐ明朝">役職</FONT></DIV></TD><TD CLASS="cn" width="10%" WIDTH="9%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ Ｐ明朝">ステータス</FONT></DIV></TD><TD CLASS="cn" width="10%" WIDTH="12%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ Ｐ明朝">処理日</FONT></DIV></TD><TD CLASS="cn" width="20%" WIDTH="12%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ Ｐ明朝">コメント</FONT></DIV></TD></TR>
+
+<TR VALIGN=top><TD CLASS="cn" width="5%" WIDTH="6%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ 明朝">0</FONT></DIV></TD><TD CLASS="cn" width="25%" WIDTH="33%"><FONT SIZE=2 FACE="ＭＳ 明朝">内部監査室 本店 内部監査室</FONT></TD><TD CLASS="cn" width="15%" WIDTH="11%"><FONT SIZE=2 FACE="ＭＳ 明朝">三浦 左有里</FONT></TD><TD CLASS="cn" width="15%" WIDTH="16%"><FONT SIZE=2 FACE="ＭＳ 明朝">　</FONT></TD><TD CLASS="cn" width="10%" WIDTH="9%"><DIV ALIGN=center><FONT SIZE=2 COLOR="FF0000" FACE="ＭＳ 明朝">申請</FONT></DIV></TD><TD CLASS="cn" width="10%" WIDTH="12%"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ 明朝">2006/09/19</FONT></DIV></TD><TD CLASS="cn" width="20%" WIDTH="12%"><FONT SIZE=2 FACE="ＭＳ Ｐ明朝">お疲れ様です。ご確認</FONT></TD></TR>
+
+<TR VALIGN=top><TD CLASS="cn" width="5%" WIDTH="6%" BGCOLOR="E1E1E1"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ 明朝">1</FONT></DIV></TD><TD CLASS="cn" width="25%" WIDTH="33%"><FONT SIZE=2 FACE="ＭＳ 明朝">内部監査室 本店 内部監査室</FONT></TD><TD CLASS="cn" width="15%" WIDTH="11%"><FONT SIZE=2 FACE="ＭＳ 明朝">佐藤 不二雄</FONT></TD><TD CLASS="cn" width="15%" WIDTH="16%"><FONT SIZE=2 FACE="ＭＳ 明朝">部長</FONT></TD><TD CLASS="cn" width="10%" WIDTH="9%"><DIV ALIGN=center><FONT SIZE=2 COLOR="FF0000" FACE="ＭＳ 明朝">承認</FONT></DIV></TD><TD CLASS="cn" width="10%" WIDTH="12%"><DIV ALIGN=center><FONT SIZE=2 FACE="ＭＳ 明朝">2006/09/19</FONT></DIV></TD><TD CLASS="cn" width="20%" WIDTH="12%"><FONT SIZE=2 FACE="ＭＳ Ｐ明朝"><BR></FONT></TD></TR>
+</TABLE>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+ 
+<DIV ALIGN=right><FONT FACE="ＭＳ Ｐゴシック"></FONT></DIV> 
+
+</FORM>
+</BODY>
+</HTML>

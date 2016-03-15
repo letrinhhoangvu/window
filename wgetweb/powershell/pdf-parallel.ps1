@@ -41,7 +41,7 @@ Function Convert-PDF {
             
         } catch {
             #Write-Error $_.Exception.Message	
-            Write-Output $file | Out-File $logFile
+            #Write-Output $file | Out-File $logFile
         }
     }
 	end { 
